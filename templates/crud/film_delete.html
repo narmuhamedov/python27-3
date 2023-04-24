@@ -7,10 +7,14 @@
 <body>
 Вы действительно хотите удалить этот фильм?
 <h3>{{film_id_delete.title}}</h3>
+<form method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <button type="submit">Да</button>
+    <button><a href="/film_delete_or_update_list/">Нет</a></button>
+</form>
 
 
-    <button><a href="/film_delete_list/{{film_id_delete.id}}/delete/">Да</a></button>
-    <button><a href="/film_delete_list/">Нет</a></button>
+
 
 
 </body>
