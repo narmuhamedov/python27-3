@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from tvshow.models import Film
-from tvshow.forms import ShowForm
+from tvshow.models import Film, Reviews
+from tvshow.forms import ShowForm, ReviewForm
 from django.views import generic
 #Не полная информация
 class FilmListView(generic.ListView):
@@ -134,3 +134,16 @@ class SearchView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['q'] = self.request.GET.get('q')
         return context
+
+
+#Оставить отзыв
+class ReviewAddView(generic.CreateView):
+    template_name = 'reviews.html'
+    form_class = ReviewForm
+    queryset = Reviews.objects.all()
+    success_url = '/'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(ReviewAddView, self).form_valid(form=form)
+

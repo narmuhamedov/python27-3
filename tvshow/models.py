@@ -24,3 +24,24 @@ class Film(models.Model):
         verbose_name = 'Фильм'
         verbose_name_plural = 'Фильмы'
 
+
+class Reviews(models.Model):
+    RATING = (
+        ('*', '*'),
+        ('**', '**'),
+        ('***', '***'),
+        ('****', '****'),
+        ('*****', '*****')
+    )
+    film_choice_comment = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='comment_object')
+    name = models.CharField(max_length=50)
+    stars = models.CharField(max_length=100, choices=RATING)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Оценка фильма'
+        verbose_name_plural = 'Оценки фильмов'
+
